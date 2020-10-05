@@ -1,0 +1,153 @@
+BIT MANIPULATION
+
+// Left shift
+
+n = 22
+-> 0 0 0 1 0 1 1 0
+ (msb)         (lsb)
+
+    -> 0 0 1 0 1 1 0 0  n = n << 1 
+    -> 0 1 0 1 1 0 0 0  n = n << 2
+                            n << i
+                            n = n * (2 ^ i)
+    ex: 5 << 1 = 10
+        5 << 4 = 80
+        1 << 5 = 32
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// Right shift
+
+n = 22
+-> 0 0 0 1 0 1 1 0
+ (msb)         (lsb)
+ 
+    -> 0 0 0 0 1 0 1 1  n = n >> 1
+    -> 0 0 0 0 0 1 0 1  n = n >> 2
+                            n >> i
+                            n = n / (2 ^ i)
+    ex: 8 >> 2 = 2
+        100 >> 5 = 3
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// Checking for ith set bit
+
+given a number n and an index i, find whether ith bit in binary representation of n is set or not.
+
+-> n = 12, i = 3
+   12: 0 0 0 0 1 1 0 0
+
+   Take f = 1:
+   0 0 0 0 0 0 0 1
+
+   f = f << i  (using left-shift)
+   f = f << 3
+   0 0 0 0 1 0 0 0
+
+   n & f ->  0 0 0 0 1 1 0 0
+             0 0 0 0 1 0 0 0
+             ---------------
+             0 0 0 0 1 0 0 0
+
+
+   if (n & f) == 0: FALSE
+   else: TRUE
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// Counting number of set bits
+
+given a number n, find number of set bits in it.
+
+-> (using right-shift)
+
+   c = 0
+   while(n > 0){
+       if (n & 1 > 0): c++
+       n = n >> 1
+   }
+   print(c)
+
+-----------------------------------------------------------------------------------------------------------------------------------
+* NOTE-> a number that is a power of 2 contains only single set bit.
+         ex: 4 is 100
+             8 is 1000
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// XOR properties
+
+   1-> 0 ^ A = A
+   2-> A ^ A = 0
+   3-> Ordering of xor doesn't matter. (2 ^ 3 ^ 1) == (3 ^ 2 ^ 1) == (1 ^ 2 ^ 3)
+
+   tip: IN XOR PROBLEMS, THINK ODD-EVEN.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// All pair sum xor
+
+given an array with n elements, calculate above.
+
+-> ex: 2, 4, 1
+       (2 + 2) ^ (2 + 4) ^ (2 + 1) ^
+       (4 + 2) ^ (4 + 4) ^ (4 + 1) ^
+       (1 + 2) ^ (1 + 4) ^ (1 + 1)
+
+       (4) ^ (6) ^ (3) ^
+       (6) ^ (8) ^ (5) ^    
+       (3) ^ (5) ^ (2)
+
+       (4) ^ () ^ () ^
+       () ^ (8) ^ () ^   
+       () ^ () ^ (2)         = 4 ^ 8 ^ 2 = 14
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// Total sum of all pair xor
+
+given an array with n elements, calculate above.
+
+-> ex: 5, 9, 7, 6
+        
+        5 ^ 9 = 12
+        5 ^ 7 = 2
+        5 ^ 6 = 3
+        9 ^ 7 = 14
+        9 ^ 6 = 15
+        7 ^ 6 = 1
+        Total = 47
+
+        int ans = 0
+        for(i = 0; i<31; i++){       (for 32 bits)
+            int c_Z = 0, c_1 = 0;
+
+            for(j = 0; j < n; j++){       (check if ith bit is set or not, for each number)
+                if(a[j] & (1 << i))
+                c_1 += 1;
+                else
+                c_Z += 1;
+            }
+            int pairs = c_1 * c_z;
+            ans += (1 << i) * pairs;
+        }
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// Given an array of integers where each element appears 3 times, EXCEPT FOR ONE, find that.
+(done in leetcode, 137. Single Number II)
+
+-> ex: {2, 2, 2, 3, 5, 3, 3}
+(can be for 32 bits or 64 bits)
+
+-> Hint:  .  make a frequency array fre[32], keeping track of number of set bits in ith bit position. 
+          .  (3 * n + 1) if the desired number has a set bit in ith position, then fre[i] % 3 == 1.
+
+
+-----------------------------------X-----------------------------------------------------------X-----------------------------------
+
+
+
+
+
+
+
