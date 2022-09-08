@@ -141,6 +141,15 @@ given an array with n elements, calculate above.
 
 -> Hint:  .  make a frequency array fre[32], keeping track of number of set bits in ith bit position. 
           .  (3 * n + 1) if the desired number has a set bit in ith position, then fre[i] % 3 == 1.
+          
+-----------------------------------------------------------------------------------------------------------------------------------
+
+// Today
+
+Note: Starting from an Even number, the XOR of next Four numbers is 0. 
+
+-> [2, 3, 4, 5] => 2 ^ 4 == 3 ^ 5
+-> [4, 5, 6, 7] => 4 ^ 6 == 5 ^ 7
 
 
 -----------------------------------X-----------------------------------------------------------X-----------------------------------
